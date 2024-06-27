@@ -147,7 +147,7 @@ li:hover .tooltipdwn {
 }
 .me-name {
   font-weight: 500;
-  padding-top: 15px;
+  padding-top: 4px;
 }
 
 .me-online {
@@ -162,7 +162,7 @@ li:hover .tooltipdwn {
 }
 .container-barchat {
   overflow-y: auto;
-  max-height: 60vh;
+  max-height: 59vh;
 }
 .barchat {
   cursor: pointer;
@@ -205,7 +205,6 @@ li:hover .tooltipdwn {
   margin-top: 5px;
   color: white;
   background-color: #00a2ff;
-  padding-top: 2px;
   text-align: center;
   font-size: 16px;
   border-radius: 50%;
@@ -535,7 +534,7 @@ input-search:hover {
   height: 50px;
   color: #314049;
 }
-.edit-profile{
+.edit-profile {
   padding: 20px;
   display: flex;
   align-items: center;
