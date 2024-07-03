@@ -1,25 +1,23 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const Sidebar = () => {
   return (
     <section className="sidebar">
       <nav>
         <ul>
+        <Link to='/'>
           <li>
             <i className="fas fa-solid fa-comments"></i>
-            <span className="tooltipdwn">Chats</span>
           </li>
+        </Link>
           <li>
             <i className="fas fa-solid fa-users"></i>
-            <span className="tooltip">Groups</span>
           </li>
           <li>
             <i className="fas fa-solid fa-gear"></i>
-            <span className="tooltip">Config</span>
           </li>
           <li className="logout">
             <i className="fas fa-sign-out-alt"></i>
-            <span className="tooltip">Logout</span>
           </li>
         </ul>
       </nav>

@@ -6,7 +6,6 @@ const Aside = () => {
   return (
     <aside className="aside">
       <Chats />
-      {/* <Profile/> */}
     </aside>
   );
 };

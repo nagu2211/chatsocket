@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-const Chats = () => {
+import React from 'react'
+
+const Contacts = () => {
   return (
-    <>
+    <aside className="aside">
       <header className="header-chats">
         <h2 className="title-chats">Chats</h2>
         <span>
@@ -137,8 +137,8 @@ const Chats = () => {
           </div>
         </div>
       </section>
-    </>
-  );
-};
+      </aside>
+  )
+}
 
-export default Chats;
+export default Contacts

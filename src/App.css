@@ -94,18 +94,6 @@ nav ul .logout {
   transform: translate(-50%) rotate(45deg);
 }
 
-li:hover .tooltip {
-  top: -50%;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-li:hover .tooltipdwn {
-  top: 120%;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
 /* aside */
 .aside {
   grid-area: aside;
@@ -146,6 +134,7 @@ li:hover .tooltipdwn {
   flex-direction: column;
 }
 .me-name {
+  color: #6e6e6e;
   font-weight: 500;
   padding-top: 4px;
 }
