@@ -4,7 +4,7 @@ import Profile from './Profile';
 
 const Aside = () => {
   return (
-    <aside class="aside">
+    <aside className="aside">
       <Chats />
       {/* <Profile/> */}
     </aside>

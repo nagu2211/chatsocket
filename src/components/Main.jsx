@@ -1,27 +1,83 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
+
+const socket = io('http://localhost:3000');
 
 const Main = () => {
+  const boxMessages = useRef(null);
+  const message = useRef("");
+  const [messages, setMessages] = useState([]);
+  const [clientId, setClientId] = useState('');
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      setClientId(socket.id);
+    });
+
+    socket.on('message', (data) => {
+      if (data.senderId !== clientId) {
+        setMessages(prevMessages => [...prevMessages, { type: 'to', msg: data.msg }]);
+      }
+    });
+
+    return () => {
+      socket.off('connect');
+      socket.off('message');
+    };
+  }, [clientId]);
+
+  const scrollBottom = () => {
+    if (boxMessages.current) {
+      boxMessages.current.scrollTop = boxMessages.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollBottom();
+  }, [messages]);
+
+  const send = () => {
+    if (message.current.value.trim() === '') {
+      message.current.focus();
+    } else {
+      const msg = message.current.value.trim();
+      const msgId = `${clientId}-${Date.now()}`;
+      setMessages(prevMessages => [...prevMessages, { type: 'from', msg }]); 
+      socket.emit('message', { id: msgId, senderId: clientId, msg });
+      message.current.value = '';
+    }
+  };
+
   return (
-    <main class="main">
-      <div class="chat-wrap">
-        <div class="header">
-          <img class="img-perfil-user" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="user image" />
-          <div class="detalles">
+    <main className="main">
+      <div className="chat-wrap">
+        <div className="header">
+          <img className="img-perfil-user" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="user image" />
+          <div className="detalles">
             <span id="nombre-to-name">Santiago Espindola</span>
           </div>
         </div>
-        <div class="chat-box" id="chat-box"></div>
-        <div class="text-area">
-          <button type="button" id="btn-archive">
-            <i class="bi bi-paperclip"></i>
+        <div ref={boxMessages} className="chat-box" id="chat-box">
+          {messages.map((message, index) => (
+            <div key={index} className={`chat ${message.type === 'from' ? 'from-message' : 'to-message'}`}>
+              <div className="detalles">
+                <p>{message.msg}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-area">
+          <button className='btn-archive' type="button" id="btn-archive">
+            <i className="bi bi-paperclip"></i>
           </button>
-          <input type="text" class="mensaje" id="message-area" placeholder="Aa" />
-          <button type="button" class="btn-stycker">
-            <i class="bi bi-emoji-smile"></i>
+          <input ref={message} type="text" className="mensaje" id="message-area" placeholder="Aa" />
+          <button className='btn-send' type="button" onClick={send}>
+            <i className="bi bi-send"></i>
           </button>
-          <button type="button" id="send-message">
-            <i class="bi bi-send"></i>
+          <button type="button" className="btn-stycker">
+            <i className="bi bi-emoji-smile"></i>
           </button>
+          
         </div>
       </div>
     </main>
