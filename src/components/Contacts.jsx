@@ -4,22 +4,12 @@ const Contacts = () => {
   return (
     <aside className="aside">
       <header className="header-chats">
-        <h2 className="title-chats">Chats</h2>
+        <h2 className="title-chats">Contacts</h2>
         <span>
-          <i className="fas fa-solid fa-user-plus"></i>
+         <i class="fa-solid fa-arrow-down-a-z"></i>
         </span>
       </header>
-      <Link to='/profile'>
-      <div className="me-barchat">
-        <div className="me-profile-img">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
-        </div>
-        <div className="me-info-chat">
-          <span className="me-name"> Santiago Espindola </span>
-          <span className="me-online"> Available </span>
-        </div>
-      </div>
-      </Link>
+      
 
       <div className="input-search-container">
         <svg className="icon-input-search" aria-hidden="true" viewBox="0 0 24 24">
@@ -29,110 +19,126 @@ const Contacts = () => {
         </svg>
         <input placeholder="Search" className="input-search" />
       </div>
-      <div className="btn-aside-container">
-        <button className="btn-aside">
-          <span>All</span>
-        </button>
-        <button className="btn-aside">
-          <span>Not read</span>
-        </button>
-      </div>
 
-      <section className="container-barchat">
-        <h4 className="sub-title-aside">PINNED CHATS</h4>
-        <div className="barchat">
-          <div className="profile-img-chat">
+      <section className="container-barchat-contacts">
+      <div className="barchat">
+          <div className="profile-img-chat margin-top">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
           </div>
           <div className="info-chat">
-            <span className="name-chat">
-              Santiago E<span className="content-chat"> - Lorem ipsum dolor sit am... </span>
-            </span>
-          </div>
-          <div className="pin-aside">
-            <i className="fa-solid fa-thumbtack"></i>
-          </div>
-          {/* <div className="noti-aside">3</div> */}
-        </div>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
-          </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              Santiago E<span className="content-chat"> - Lorem ipsum dolor sit am... </span>
-            </span>
-          </div>
-          <div className="pin-aside">
-            <i className="fa-solid fa-thumbtack"></i>
-          </div>
-        </div>
-        <h4 className="sub-title-aside">RECENT CHATS</h4>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
-          </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              Santiago E<span className="content-chat"> - Lorem ipsum dolor sit am... </span>
-            </span>
-          </div>
-
-          <div className="noti-aside">3</div>
-        </div>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
-          </div>
-          <div className="info-chat">
-            <span className="name-chat">
+            <span className="info-contact">
               {' '}
-              Santiago E <span className="content-chat"> - Lorem ipsum dolor sit amet </span>
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
             </span>
           </div>
         </div>
         <div className="barchat">
-          <div className="profile-img-chat">
+          <div className="profile-img-chat margin-top">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
           </div>
           <div className="info-chat">
-            <span className="name-chat">
+            <span className="info-contact">
               {' '}
-              Santiago E <span className="content-chat"> - Lorem ipsum dolor sit amet </span>
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
             </span>
           </div>
         </div>
         <div className="barchat">
-          <div className="profile-img-chat">
+          <div className="profile-img-chat margin-top">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
           </div>
           <div className="info-chat">
-            <span className="name-chat">
+            <span className="info-contact">
               {' '}
-              Santiago E <span className="content-chat"> - Lorem ipsum dolor sit amet </span>
-            </span>
-          </div>
-        </div>
-        <h4 className="sub-title-aside">MUTED CHATS</h4>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
-          </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              {' '}
-              Santiago E <span className="content-chat"> - Lorem ipsum dolor sit amet </span>
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
             </span>
           </div>
         </div>
         <div className="barchat">
-          <div className="profile-img-chat">
+          <div className="profile-img-chat margin-top">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
           </div>
           <div className="info-chat">
-            <span className="name-chat">
+            <span className="info-contact">
               {' '}
-              Santiago E <span className="content-chat"> - Lorem ipsum dolor sit amet </span>
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
+            </span>
+          </div>
+        </div>
+        <div className="barchat">
+          <div className="profile-img-chat margin-top">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+          </div>
+          <div className="info-chat">
+            <span className="info-contact">
+              {' '}
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
+            </span>
+          </div>
+        </div>
+        <div className="barchat">
+          <div className="profile-img-chat margin-top">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+          </div>
+          <div className="info-chat">
+            <span className="info-contact">
+              {' '}
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
+            </span>
+          </div>
+        </div>
+        <div className="barchat">
+          <div className="profile-img-chat margin-top">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+          </div>
+          <div className="info-chat">
+            <span className="info-contact">
+              {' '}
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
+            </span>
+          </div>
+        </div>
+        <div className="barchat">
+          <div className="profile-img-chat margin-top">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+          </div>
+          <div className="info-chat">
+            <span className="info-contact">
+              {' '}
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
+            </span>
+          </div>
+        </div>
+        <div className="barchat">
+          <div className="profile-img-chat margin-top">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+          </div>
+          <div className="info-chat">
+            <span className="info-contact">
+              {' '}
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
+            </span>
+          </div>
+        </div>
+        <div className="barchat">
+          <div className="profile-img-chat margin-top">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+          </div>
+          <div className="info-chat">
+            <span className="info-contact">
+              {' '}
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
+            </span>
+          </div>
+        </div>
+        <div className="barchat">
+          <div className="profile-img-chat margin-top">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+          </div>
+          <div className="info-chat">
+            <span className="info-contact">
+              {' '}
+              Santiago Espindola <span className="content-chat">Lorem ipsum dolor sit amet </span>
             </span>
           </div>
         </div>

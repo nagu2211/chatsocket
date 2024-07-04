@@ -134,7 +134,7 @@ nav ul .logout {
   flex-direction: column;
 }
 .me-name {
-  color: #6e6e6e;
+  color: #636363;
   font-weight: 500;
   padding-top: 4px;
 }
@@ -153,6 +153,10 @@ nav ul .logout {
   overflow-y: auto;
   max-height: 59vh;
 }
+.container-barchat-contacts {
+  overflow-y: auto;
+  max-height: 80vh;
+}
 .barchat {
   cursor: pointer;
   padding: 10px 20px 10px 20px;
@@ -167,6 +171,9 @@ nav ul .logout {
   height: 35px;
   width: 50px;
   padding-right: 15px;
+}
+.margin-top {
+  margin-top: 6px;
 }
 .profile-img-chat img {
   width: 100%;
@@ -184,7 +191,12 @@ nav ul .logout {
   font-weight: bold;
   font-size: 17px;
 }
-
+.info-chat .info-contact {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 17px;
+}
 .content-chat {
   color: #8e8e8e;
   font-size: 17px;
