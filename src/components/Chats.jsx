@@ -1,6 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 const Chats = () => {
+  const [hoveredChatId, setHoveredChatId] = useState(null);
+  const [chats, setChats] = useState([
+    { id: 1, name: 'Santiago A', message: 'Lorem ipsum dolor sit amet', pinned: true, muted: false, newMsg: 1 },
+    { id: 2, name: 'Santiago B', message: 'Lorem ipsum dolor sit amet', pinned: false, muted: true, newMsg: 3 },
+    { id: 3, name: 'Santiago C', message: 'Lorem ipsum dolor sit amet', pinned: false, muted: false, newMsg: 0 },
+    { id: 4, name: 'Santiago D', message: 'Lorem ipsum dolor sit amet', pinned: false, muted: false, newMsg: 0 },
+    { id: 5, name: 'Santiago E', message: 'Lorem ipsum dolor sit amet', pinned: false, muted: false, newMsg: 0 },
+    { id: 6, name: 'Santiago F', message: 'Lorem ipsum dolor sit amet', pinned: false, muted: false, newMsg: 2 },
+  ]);
+  const [filter, setFilter] = useState('all');
+
+  const togglePin = (id) => {
+    setChats(chats.map((chat) => (chat.id === id ? { ...chat, pinned: !chat.pinned } : chat)));
+  };
+
+  const toggleMute = (id) => {
+    setChats(chats.map((chat) => (chat.id === id ? { ...chat, muted: !chat.muted } : chat)));
+  };
+
+  const pinnedChats = chats.filter((chat) => chat.pinned && !chat.muted);
+  const recentChats = chats.filter((chat) => !chat.pinned && !chat.muted);
+  const mutedChats = chats.filter((chat) => chat.muted);
+
+  const filteredChats = (chatsArray) => {
+    if (filter === 'notRead') {
+      return chatsArray.filter(chat => chat.newMsg > 0);
+    }
+    return chatsArray;
+  };
+
   return (
     <>
       <header className="header-chats">
@@ -9,133 +40,93 @@ const Chats = () => {
           <i className="fas fa-solid fa-user-plus"></i>
         </span>
       </header>
-      <Link to='/profile'>
-      <div className="me-barchat">
-        <div className="me-profile-img">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+      <Link to="/profile">
+        <div className="me-barchat">
+          <div className="me-profile-img">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+          </div>
+          <div className="me-info-chat">
+            <span className="me-name"> Santiago Espindola </span>
+            <span className="me-online"> Available </span>
+          </div>
         </div>
-        <div className="me-info-chat">
-          <span className="me-name"> Santiago Espindola </span>
-          <span className="me-online"> Available </span>
-        </div>
-      </div>
       </Link>
-
-      <div className="input-search-container">
-        <svg className="icon-input-search" aria-hidden="true" viewBox="0 0 24 24">
-          <g>
-            <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
-          </g>
-        </svg>
-        <input placeholder="Search" className="input-search" />
-      </div>
       <div className="btn-aside-container">
-        <button className="btn-aside">
+        <button className="btn-aside" onClick={() => setFilter('all')}>
           <span>All</span>
         </button>
-        <button className="btn-aside">
+        <button className="btn-aside" onClick={() => setFilter('notRead')}>
           <span>Not read</span>
         </button>
       </div>
 
       <section className="container-barchat">
         <h4 className="sub-title-aside">PINNED CHATS</h4>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+        {filteredChats(pinnedChats).map((chat) => (
+          <div className="barchat" key={chat.id}>
+            <div className="profile-img-chat">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+            </div>
+            <div className="info-chat">
+              <span className="name-chat">
+                {chat.name} <span className="content-chat"> - {chat.message} </span>
+              </span>
+            </div>
+            <div className="icons-action-barchat">
+              {chat.newMsg > 0 ? <div className="noti-aside">{chat.newMsg}</div> : <div className="noti-aside hidden"></div>}
+              <div className="pin-aside" onClick={() => togglePin(chat.id)}>
+                <i className="fa-solid fa-thumbtack"></i>
+              </div>
+            </div>
           </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              Santiago E<span className="content-chat"> - Lorem ipsum dolor sit am... </span>
-            </span>
-          </div>
-          <div className="pin-aside">
-            <i className="fa-solid fa-thumbtack"></i>
-          </div>
-          {/* <div className="noti-aside">3</div> */}
-        </div>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
-          </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              Santiago E<span className="content-chat"> - Lorem ipsum dolor sit am... </span>
-            </span>
-          </div>
-          <div className="pin-aside">
-            <i className="fa-solid fa-thumbtack"></i>
-          </div>
-        </div>
+        ))}
         <h4 className="sub-title-aside">RECENT CHATS</h4>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+        {filteredChats(recentChats).map((chat) => (
+          <div className="barchat" key={chat.id} onMouseEnter={() => setHoveredChatId(chat.id)} onMouseLeave={() => setHoveredChatId(null)}>
+            <div className="profile-img-chat">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+            </div>
+            <div className="info-chat">
+              <span className="name-chat">
+                {chat.name} <span className="content-chat"> - {chat.message} </span>
+              </span>
+            </div>
+            {chat.newMsg > 0 ? (
+              <div className="noti-aside">{chat.newMsg}</div>
+            ) : (
+              hoveredChatId === chat.id && (
+                <div className="icons-action-barchat">
+                  <div className="action-barchat" onClick={() => toggleMute(chat.id)}>
+                    <i className="fa-solid fa-volume-xmark"></i>
+                  </div>
+                  <div className="action-barchat" onClick={() => togglePin(chat.id)}>
+                    <i className="fa-solid fa-thumbtack"></i>
+                  </div>
+                </div>
+              )
+            )}
           </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              Santiago E<span className="content-chat"> - Lorem ipsum dolor sit am... </span>
-            </span>
-          </div>
+        ))}
 
-          <div className="noti-aside">3</div>
-        </div>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
-          </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              {' '}
-              Santiago E <span className="content-chat"> - Lorem ipsum dolor sit amet </span>
-            </span>
-          </div>
-        </div>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
-          </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              {' '}
-              Santiago E <span className="content-chat"> - Lorem ipsum dolor sit amet </span>
-            </span>
-          </div>
-        </div>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
-          </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              {' '}
-              Santiago E <span className="content-chat"> - Lorem ipsum dolor sit amet </span>
-            </span>
-          </div>
-        </div>
         <h4 className="sub-title-aside">MUTED CHATS</h4>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+        {filteredChats(mutedChats).map((chat) => (
+          <div className="barchat" key={chat.id}>
+            <div className="profile-img-chat">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+            </div>
+            <div className="info-chat">
+              <span className="name-chat">
+                {chat.name} <span className="content-chat"> - {chat.message} </span>
+              </span>
+            </div>
+            <div className="icons-action-barchat">
+              {chat.newMsg > 0 ? <div className="noti-aside">{chat.newMsg}</div> : <div className="noti-aside hidden"></div>}
+              <div className="pin-aside" onClick={() => toggleMute(chat.id)}>
+                <i className="fa-solid fa-volume-xmark"></i>
+              </div>
+            </div>
           </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              {' '}
-              Santiago E <span className="content-chat"> - Lorem ipsum dolor sit amet </span>
-            </span>
-          </div>
-        </div>
-        <div className="barchat">
-          <div className="profile-img-chat">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
-          </div>
-          <div className="info-chat">
-            <span className="name-chat">
-              {' '}
-              Santiago E <span className="content-chat"> - Lorem ipsum dolor sit amet </span>
-            </span>
-          </div>
-        </div>
+        ))}
       </section>
     </>
   );

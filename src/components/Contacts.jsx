@@ -6,7 +6,7 @@ const Contacts = () => {
       <header className="header-chats">
         <h2 className="title-chats">Contacts</h2>
         <span>
-         <i class="fa-solid fa-arrow-down-a-z"></i>
+         <i className="fa-solid fa-arrow-down-a-z"></i>
         </span>
       </header>
       

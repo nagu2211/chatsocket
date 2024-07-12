@@ -151,7 +151,7 @@ nav ul .logout {
 }
 .container-barchat {
   overflow-y: auto;
-  max-height: 59vh;
+  max-height: 69vh;
 }
 .container-barchat-contacts {
   overflow-y: auto;
@@ -182,7 +182,7 @@ nav ul .logout {
   border-radius: 2px;
 }
 .info-chat {
-  width: 438px;
+  width: 415px;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -214,6 +214,9 @@ nav ul .logout {
   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
     rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
+.hidden {
+  visibility: hidden;
+}
 .pin-aside {
   margin-top: 5px;
   color: rgb(132, 132, 132);
@@ -222,6 +225,22 @@ nav ul .logout {
   font-size: 16px;
   width: 20px;
   height: 22px;
+}
+.icons-action-barchat {
+  display: flex;
+  gap: 2px;
+}
+.action-barchat {
+  margin-top: 5px;
+  color: rgb(175, 175, 175);
+  padding-top: 2px;
+  text-align: center;
+  font-size: 16px;
+  width: 20px;
+  height: 22px;
+}
+.action-barchat:hover {
+  color: rgb(132, 132, 132);
 }
 /* input search */
 .input-search-container {
@@ -268,7 +287,7 @@ input-search:hover {
 /* buttons msgs reads */
 .btn-aside-container {
   display: flex;
-  padding: 0 0 5px 20px;
+  padding: 9px 0 9px 20px;
   gap: 7px;
 }
 
