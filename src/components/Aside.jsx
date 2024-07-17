@@ -1,11 +1,10 @@
 import React from 'react';
 import Chats from './Chats';
-import Profile from './Profile';
 
-const Aside = () => {
+const Aside = ({ infoContacts, onSelectChat }) => {
   return (
     <aside className="aside">
-      <Chats />
+      <Chats chats={infoContacts} onSelectChat={onSelectChat} />
     </aside>
   );
 };

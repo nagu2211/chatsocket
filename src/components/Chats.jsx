@@ -1,83 +1,28 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Chats = () => {
+const Chats = ({ chats, onSelectChat }) => {
   const [hoveredChatId, setHoveredChatId] = useState(null);
 
-  const [chats, setChats] = useState([
-    {
-      id: 1,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago A',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: true,
-      muted: false,
-      newMsg: 1,
-    },
-    {
-      id: 2,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago B',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: false,
-      muted: true,
-      newMsg: 3,
-    },
-    {
-      id: 3,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago C',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: false,
-      muted: false,
-      newMsg: 0,
-    },
-    {
-      id: 4,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago D',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: false,
-      muted: false,
-      newMsg: 0,
-    },
-    {
-      id: 5,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago E',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: false,
-      muted: false,
-      newMsg: 0,
-    },
-    {
-      id: 6,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago F',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: false,
-      muted: false,
-      newMsg: 2,
-    },
-  ]);
+  const [chatList, setChatList] = useState(chats);
 
   const [filter, setFilter] = useState('all');
 
   const togglePin = (id) => {
-    setChats(chats.map((chat) => (chat.id === id ? { ...chat, pinned: !chat.pinned } : chat)));
+    setChatList(chatList.map((chat) => (chat.id === id ? { ...chat, pinned: !chat.pinned } : chat)));
   };
 
   const toggleMute = (id) => {
-    setChats(chats.map((chat) => (chat.id === id ? { ...chat, muted: !chat.muted } : chat)));
+    setChatList(chatList.map((chat) => (chat.id === id ? { ...chat, muted: !chat.muted } : chat)));
   };
 
   const markAsRead = (id) => {
-    setChats(chats.map((chat) => (chat.id === id ? { ...chat, newMsg: 0 } : chat)));
+    setChatList(chatList.map((chat) => (chat.id === id ? { ...chat, newMsg: 0 } : chat)));
   };
 
-  const pinnedChats = chats.filter((chat) => chat.pinned && !chat.muted);
-  const recentChats = chats.filter((chat) => !chat.pinned && !chat.muted);
-  const mutedChats = chats.filter((chat) => chat.muted);
+  const pinnedChats = chatList.filter((chat) => chat.pinned && !chat.muted);
+  const recentChats = chatList.filter((chat) => !chat.pinned && !chat.muted);
+  const mutedChats = chatList.filter((chat) => chat.muted);
 
   const filteredChats = (chatsArray) => {
     if (filter === 'notRead') {
@@ -117,7 +62,7 @@ const Chats = () => {
       <section className="container-barchat">
         <h4 className="sub-title-aside">PINNED CHATS</h4>
         {filteredChats(pinnedChats).map((chat) => (
-          <div className="barchat" key={chat.id} onClick={() => markAsRead(chat.id)}>
+          <div className="barchat" key={chat.id}  onClick={() => { markAsRead(chat.id); onSelectChat(chat); }}>
             <div className="profile-img-chat">
               <img src={chat.img} alt="" />
             </div>
@@ -142,7 +87,7 @@ const Chats = () => {
         ))}
         <h4 className="sub-title-aside">RECENT CHATS</h4>
         {filteredChats(recentChats).map((chat) => (
-          <div className="barchat" key={chat.id} onClick={() => markAsRead(chat.id)} onMouseEnter={() => setHoveredChatId(chat.id)} onMouseLeave={() => setHoveredChatId(null)}>
+          <div className="barchat" key={chat.id} onClick={() => { markAsRead(chat.id); onSelectChat(chat); }} onMouseEnter={() => setHoveredChatId(chat.id)} onMouseLeave={() => setHoveredChatId(null)}>
             <div className="profile-img-chat">
               <img src={chat.img} alt="" />
             </div>
@@ -182,7 +127,7 @@ const Chats = () => {
 
         <h4 className="sub-title-aside">MUTED CHATS</h4>
         {filteredChats(mutedChats).map((chat) => (
-          <div className="barchat" key={chat.id} onClick={() => markAsRead(chat.id)}>
+          <div className="barchat" key={chat.id} onClick={() => { markAsRead(chat.id); onSelectChat(chat); }}>
             <div className="profile-img-chat">
               <img src={chat.img} alt="" />
             </div>

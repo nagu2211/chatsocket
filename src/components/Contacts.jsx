@@ -1,68 +1,7 @@
 import React, { useState } from 'react';
 
-const Contacts = () => {
-  const [chats, setChats] = useState([
-    {
-      id: 1,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago A',
-      info: 'Lorem ipsum dolor sit amet',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: true,
-      muted: false,
-      newMsg: 1,
-    },
-    {
-      id: 2,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago B',
-      info: 'Lorem ipsum dolor sit amet',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: false,
-      muted: true,
-      newMsg: 3,
-    },
-    {
-      id: 3,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago C',
-      info: 'Lorem ipsum dolor sit amet',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: false,
-      muted: false,
-      newMsg: 0,
-    },
-    {
-      id: 4,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago D',
-      info: 'Lorem ipsum dolor sit amet',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: false,
-      muted: false,
-      newMsg: 0,
-    },
-    {
-      id: 5,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago E',
-      info: 'Lorem ipsum dolor sit amet',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: false,
-      muted: false,
-      newMsg: 0,
-    },
-    {
-      id: 6,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
-      name: 'Santiago F',
-      info: 'Lorem ipsum dolor sit amet',
-      message: 'Lorem ipsum dolor sit amet',
-      pinned: false,
-      muted: false,
-      newMsg: 2,
-    },
-  ]);
+const Contacts = ({ chats, onSelectChat }) => {
+  const [contactList, setContactList] = useState(chats);
 
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
@@ -74,21 +13,21 @@ const Contacts = () => {
   };
 
   const sortChats = (order) => {
-    const sortedChats = [...chats].sort((a, b) => {
+    const sortedChats = [...contactList].sort((a, b) => {
       if (order === 'asc') {
         return a.name.localeCompare(b.name);
       } else {
         return b.name.localeCompare(a.name);
       }
     });
-    setChats(sortedChats);
+    setContactList(sortedChats);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredChats = chats.filter((chat) =>
+  const filteredChats = contactList.filter((chat) =>
     chat.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -117,7 +56,11 @@ const Contacts = () => {
 
       <section className="container-barchat-contacts">
         {filteredChats.map((chat) => (
-          <div className="barchat" key={chat.id}>
+         <div
+         className="barchat"
+         key={chat.id}
+         onClick={() => onSelectChat(chat)}
+       >
             <div className="profile-img-chat margin-top">
               <img src={chat.img} alt="" />
             </div>

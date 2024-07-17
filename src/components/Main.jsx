@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 
 const socket = io('http://localhost:3000');
 
-const Main = () => {
+const Main = ({ selectedChat }) => {
   const boxMessages = useRef(null);
   const message = useRef("");
   const [messages, setMessages] = useState([]);
@@ -42,7 +42,7 @@ const Main = () => {
     } else {
       const msg = message.current.value.trim();
       const msgId = `${clientId}-${Date.now()}`;
-      setMessages(prevMessages => [...prevMessages, { type: 'from', msg }]); 
+      setMessages(prevMessages => [...prevMessages, { type: 'from', msg }]);
       socket.emit('message', { id: msgId, senderId: clientId, msg });
       message.current.value = '';
     }
@@ -52,10 +52,17 @@ const Main = () => {
     <main className="main">
       <div className="chat-wrap">
         <div className="header">
-          <img className="img-perfil-user" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="user image" />
-          <div className="detalles">
-            <span id="nombre-to-name">Santiago Espindola</span>
-          </div>
+          {selectedChat ? (
+            <>
+              <img className="img-perfil-user" src={selectedChat.img} alt="user image" />
+              <div className="detalles">
+                <span id="nombre-to-name">{selectedChat.name}</span>
+                <p>{selectedChat.info}</p>
+              </div>
+            </>
+          ) : (
+            <p>Select a contact to start chatting</p>
+          )}
         </div>
         <div ref={boxMessages} className="chat-box" id="chat-box">
           {messages.map((message, index) => (
@@ -77,7 +84,6 @@ const Main = () => {
           <button type="button" className="btn-stycker">
             <i className="bi bi-emoji-smile"></i>
           </button>
-          
         </div>
       </div>
     </main>
