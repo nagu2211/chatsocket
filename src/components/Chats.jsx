@@ -68,7 +68,7 @@ const Chats = ({ chats, onSelectChat }) => {
             </div>
             <div className="info-chat">
               <span className="name-chat">
-                {chat.name} <span className="content-chat"> - {chat.message} </span>
+                {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
               </span>
             </div>
             <div className="icons-action-barchat">
@@ -93,7 +93,7 @@ const Chats = ({ chats, onSelectChat }) => {
             </div>
             <div className="info-chat">
               <span className="name-chat">
-                {chat.name} <span className="content-chat"> - {chat.message} </span>
+                {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
               </span>
             </div>
             {chat.newMsg > 0 ? (
@@ -133,7 +133,7 @@ const Chats = ({ chats, onSelectChat }) => {
             </div>
             <div className="info-chat">
               <span className="name-chat">
-                {chat.name} <span className="content-chat"> - {chat.message} </span>
+                {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
               </span>
             </div>
             <div className="icons-action-barchat">

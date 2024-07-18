@@ -3,10 +3,9 @@ import { io } from 'socket.io-client';
 
 const socket = io('http://localhost:3000');
 
-const Main = ({ selectedChat }) => {
+const Main = ({ selectedChat, messages, onSendMessage }) => {
   const boxMessages = useRef(null);
-  const message = useRef("");
-  const [messages, setMessages] = useState([]);
+  const messageInput = useRef("");
   const [clientId, setClientId] = useState('');
 
   useEffect(() => {
@@ -15,8 +14,8 @@ const Main = ({ selectedChat }) => {
     });
 
     socket.on('message', (data) => {
-      if (data.senderId !== clientId) {
-        setMessages(prevMessages => [...prevMessages, { type: 'to', msg: data.msg }]);
+      if (data.senderId !== clientId && selectedChat && selectedChat.id === data.contactId) {
+        onSendMessage(data.msg, data.contactId);
       }
     });
 
@@ -24,7 +23,7 @@ const Main = ({ selectedChat }) => {
       socket.off('connect');
       socket.off('message');
     };
-  }, [clientId]);
+  }, [clientId, selectedChat, onSendMessage]);
 
   const scrollBottom = () => {
     if (boxMessages.current) {
@@ -37,14 +36,14 @@ const Main = ({ selectedChat }) => {
   }, [messages]);
 
   const send = () => {
-    if (message.current.value.trim() === '') {
-      message.current.focus();
+    if (messageInput.current.value.trim() === '') {
+      messageInput.current.focus();
     } else {
-      const msg = message.current.value.trim();
+      const msg = messageInput.current.value.trim();
       const msgId = `${clientId}-${Date.now()}`;
-      setMessages(prevMessages => [...prevMessages, { type: 'from', msg }]);
-      socket.emit('message', { id: msgId, senderId: clientId, msg });
-      message.current.value = '';
+      onSendMessage(msg, selectedChat.id);
+      socket.emit('message', { id: msgId, senderId: clientId, contactId: selectedChat.id, msg });
+      messageInput.current.value = '';
     }
   };
 
@@ -77,7 +76,7 @@ const Main = ({ selectedChat }) => {
           <button className='btn-archive' type="button" id="btn-archive">
             <i className="bi bi-paperclip"></i>
           </button>
-          <input ref={message} type="text" className="mensaje" id="message-area" placeholder="Aa" />
+          <input ref={messageInput} type="text" className="mensaje" id="message-area" placeholder="Aa" />
           <button className='btn-send' type="button" onClick={send}>
             <i className="bi bi-send"></i>
           </button>
