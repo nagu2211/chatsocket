@@ -1,13 +1,14 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
+import UploadFile from './UploadFile';
 
 const socket = io('http://localhost:3000');
 
 const Main = ({ selectedChat, messages, onSendMessage }) => {
   const boxMessages = useRef(null);
-  const messageInput = useRef("");
+  const messageInput = useRef('');
+ 
   const [clientId, setClientId] = useState('');
-
   useEffect(() => {
     socket.on('connect', () => {
       setClientId(socket.id);
@@ -47,6 +48,14 @@ const Main = ({ selectedChat, messages, onSendMessage }) => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      send();
+    }
+  };
+
+
+
   return (
     <main className="main">
       <div className="chat-wrap">
@@ -73,11 +82,9 @@ const Main = ({ selectedChat, messages, onSendMessage }) => {
           ))}
         </div>
         <div className="text-area">
-          <button className='btn-archive' type="button" id="btn-archive">
-            <i className="bi bi-paperclip"></i>
-          </button>
-          <input ref={messageInput} type="text" className="mensaje" id="message-area" placeholder="Aa" />
-          <button className='btn-send' type="button" onClick={send}>
+          <UploadFile/>
+          <input ref={messageInput} type="text" className="mensaje" id="message-area" placeholder="Aa" onKeyPress={handleKeyPress} />
+          <button className="btn-send" type="button" onClick={send}>
             <i className="bi bi-send"></i>
           </button>
           <button type="button" className="btn-stycker">

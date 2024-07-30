@@ -410,11 +410,9 @@ input-search:hover {
   width: 55px;
   border: none;
   outline: none;
-  background: #000000;
-
+  background-color: #314049;
   font-size: 19px;
   cursor: pointer;
-  opacity: 0.7;
   pointer-events: painted;
   border-radius: 5px 0px 0px 5px;
   transition: all 0.3s ease;
@@ -424,17 +422,15 @@ input-search:hover {
   width: 55px;
   border: none;
   outline: none;
-  background: #000000;
-
+  background-color: #314049;
   font-size: 19px;
   cursor: pointer;
-  opacity: 0.7;
   pointer-events: painted;
   border-radius: 0px 5px 5px 0px;
   transition: all 0.3s ease;
 }
 .chat-wrap .text-area .btn-stycker {
-  color: #141414;
+  color: #314049;
   width: 55px;
   border: none;
   outline: none;
