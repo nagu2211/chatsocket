@@ -454,6 +454,14 @@ input-search:hover {
   box-shadow: 0 0 32px rgb(0 0 0 / 8%), 0rem 16px 16px -16px rgb(0 0 0 / 10%);
 }
 
+.chat-image {
+  max-width: 100%; 
+  height: auto; 
+  width: 200px; 
+  height: 200px; 
+  cursor: pointer;
+}
+
 .chat-wrap .from-message {
   display: flex;
 }
