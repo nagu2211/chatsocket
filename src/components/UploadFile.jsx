@@ -4,30 +4,30 @@ import Swal from 'sweetalert2';
 const UploadFile = ({ onFileSend }) => {
   const uploadArchive = async () => {
     const { value: file } = await Swal.fire({
-      title: "Select image",
-      input: "file",
+      title: 'Select image',
+      input: 'file',
       inputAttributes: {
-        accept: "image/*",
-        "aria-label": "Upload your profile picture"
+        accept: 'image/*',
+        'aria-label': 'Upload your profile picture',
       },
       showCancelButton: true,
-      confirmButtonText: "OK",
-      cancelButtonText: "Cancel",
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
       preConfirm: (file) => {
         return file;
-      }
+      },
     });
 
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
         Swal.fire({
-          title: "Your uploaded picture",
+          title: 'Your uploaded picture',
           imageUrl: e.target.result,
-          imageAlt: "The uploaded picture",
+          imageAlt: 'The uploaded picture',
           showCancelButton: true,
-          confirmButtonText: "Send",
-          cancelButtonText: "Cancel"
+          confirmButtonText: 'Send',
+          cancelButtonText: 'Cancel',
         }).then((result) => {
           if (result.isConfirmed) {
             onFileSend(file);

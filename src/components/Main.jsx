@@ -15,22 +15,21 @@ const Main = ({ selectedChat, messages, onSendMessage }) => {
     const handleConnect = () => {
       setClientId(socket.id);
     };
-  
+
     const handleMessage = (data) => {
       if (data.senderId !== clientId && selectedChat && selectedChat.id === data.contactId) {
         onSendMessage(data.msg, data.contactId);
       }
     };
-  
+
     socket.on('connect', handleConnect);
     socket.on('message', handleMessage);
-  
+
     return () => {
       socket.off('connect', handleConnect);
       socket.off('message', handleMessage);
     };
   }, [clientId, selectedChat, onSendMessage]);
-  
 
   const scrollBottom = () => {
     if (boxMessages.current) {
@@ -83,7 +82,7 @@ const Main = ({ selectedChat, messages, onSendMessage }) => {
     Swal.fire({
       imageUrl: url,
       imageHeight: 600,
-      imageAlt: "Submitted image",
+      imageAlt: 'Submitted image',
     });
   };
 

@@ -8,6 +8,12 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [userInfo, setUserInfo] = useState({
+    id: 1,
+    imgUser: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
+    name: 'Santiago A',
+    info: 'Lorem ipsum dolor sit amet asd',
+  });
   const infoContacts = [
     {
       id: 1,
@@ -128,8 +134,8 @@ function App() {
       <BrowserRouter>
         <Sidebar />
         <Routes>
-          <Route exact path="/" element={<Aside infoContacts={infoContacts} onSelectChat={handleSelectChat} />} />
-          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/" element={<Aside infoContacts={infoContacts} onSelectChat={handleSelectChat} user={userInfo}/>} />
+          <Route exact path="/profile" element={<Profile userInfo={userInfo} setUserInfo={setUserInfo} />} />
           <Route exact path="/contacts" element={<Contacts chats={infoContacts} onSelectChat={handleSelectChat} />} />
         </Routes>
       </BrowserRouter>
@@ -139,6 +145,3 @@ function App() {
 }
 
 export default App;
-
-
-

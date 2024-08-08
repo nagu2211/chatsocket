@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Chats = ({ chats, onSelectChat }) => {
+const Chats = ({ chats, onSelectChat, userInfo}) => {
   const [hoveredChatId, setHoveredChatId] = useState(null);
 
   const [chatList, setChatList] = useState(chats);
@@ -40,15 +40,18 @@ const Chats = ({ chats, onSelectChat }) => {
         </span>
       </header>
       <Link to="/profile">
+      
+
         <div className="me-barchat">
           <div className="me-profile-img">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="" />
+            <img src={userInfo.imgUser} alt="user image profile" />
           </div>
           <div className="me-info-chat">
-            <span className="me-name"> Santiago Espindola </span>
+            <span className="me-name">{userInfo.name}</span>
             <span className="me-online"> Available </span>
           </div>
         </div>
+        
       </Link>
       <div className="btn-aside-container">
         <button className="btn-aside" onClick={() => setFilter('all')}>

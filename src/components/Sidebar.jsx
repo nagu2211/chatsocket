@@ -44,20 +44,20 @@ const Sidebar = () => {
         <ul>
           <Link to="/">
             <li>
-              <i className="fas fa-solid fa-comments"></i>
+              <i className="iconHover fas fa-solid fa-comments"></i>
             </li>
           </Link>
           <Link to="/contacts">
             <li>
-              <i className="fas fa-solid fa-users"></i>
+              <i className="iconHover fas fa-solid fa-users"></i>
             </li>
           </Link>
           <li>
-            <i className="fas fa-solid fa-gear"></i>
+            <i className="iconHover fas fa-solid fa-gear"></i>
           </li>
           <button onClick={() => logout()}>
             <li className="logout">
-              <i className="fas fa-sign-out-alt"></i>
+              <i className="iconHover fas fa-sign-out-alt"></i>
             </li>
           </button>
         </ul>

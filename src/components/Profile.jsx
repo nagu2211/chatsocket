@@ -1,6 +1,16 @@
 import React from 'react';
 
-const Profile = () => {
+const Profile = ({ userInfo, setUserInfo }) => {
+  const handleEdit = (field) => {
+    const newValue = prompt(`Edit your ${field}:`, userInfo[field]);
+    if (newValue) {
+      setUserInfo({
+        ...userInfo,
+        [field]: newValue,
+      });
+    }
+  };
+
   return (
     <aside className="aside">
       <header className="header-chats">
@@ -8,7 +18,7 @@ const Profile = () => {
       </header>
       <div className="me-profile">
         <div className="me-profile-user-img">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s" alt="profile image" />
+          <img src={userInfo.imgUser} alt="profile image" />
         </div>
       </div>
       <div>
@@ -16,15 +26,15 @@ const Profile = () => {
           <h5>Your Name</h5>
         </div>
         <div className="edit-profile">
-          <p>Santy</p>
-          <i className="fa-solid fa-pen"></i>
+          <p>{userInfo.name}</p>
+          <i className="fa-solid fa-pen" onClick={() => handleEdit('name')}></i>
         </div>
         <div className="name-profile">
           <h5>Info</h5>
         </div>
         <div className="edit-profile">
-          <p>Hola soy santiago!</p>
-          <i className="fa-solid fa-pen"></i>
+          <p>{userInfo.info}</p>
+          <i className="fa-solid fa-pen" onClick={() => handleEdit('info')}></i>
         </div>
       </div>
     </aside>

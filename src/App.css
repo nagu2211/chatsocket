@@ -46,11 +46,9 @@ nav ul li {
   font-size: 14px;
   display: table;
   padding: 10px;
-  transition: all 0.2s;
+  
 }
-nav ul li:hover {
-  background: #eee;
-}
+
 .fas {
   position: relative;
   width: 39px;
@@ -58,6 +56,12 @@ nav ul li:hover {
   top: 10px;
   font-size: 20px;
   text-align: center;
+  transition: all 0.2s;
+}
+
+.iconHover:hover{
+  font-size: 23px;
+  color: #dbe1e5;
 }
 nav ul li .nav-item {
   position: relative;
@@ -136,13 +140,12 @@ nav ul .logout {
 .me-name {
   color: #636363;
   font-weight: 500;
-  padding-top: 4px;
+  padding-top: 10px;
 }
 
 .me-online {
   color: #8e8e8e;
   font-size: 16px;
-  padding-top: 5px;
 }
 .sub-title-aside {
   font-size: 17px;
@@ -460,6 +463,9 @@ input-search:hover {
   width: 200px; 
   height: 200px; 
   cursor: pointer;
+  padding: 5px 5px 5px 5px;
+  border-radius: 18px 0px 18px 18px;
+  margin-top: 6px;
 }
 
 .chat-wrap .from-message {
