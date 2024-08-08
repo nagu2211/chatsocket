@@ -1,13 +1,29 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 
 const Profile = ({ userInfo, setUserInfo }) => {
+  const uploadImg = async () => {
+    const { value: url } = await Swal.fire({
+      input: "url",
+      inputLabel: "URL address",
+      inputPlaceholder: "Enter the URL",
+    });
+    if (url) {
+      setUserInfo((prevUserInfo) => ({
+        ...prevUserInfo,
+        imgUser: url,
+      }));
+      Swal.fire('Image updated successfully!');
+    }
+  };
+
   const handleEdit = (field) => {
     const newValue = prompt(`Edit your ${field}:`, userInfo[field]);
     if (newValue) {
-      setUserInfo({
-        ...userInfo,
+      setUserInfo((prevUserInfo) => ({
+        ...prevUserInfo,
         [field]: newValue,
-      });
+      }));
     }
   };
 
@@ -18,7 +34,7 @@ const Profile = ({ userInfo, setUserInfo }) => {
       </header>
       <div className="me-profile">
         <div className="me-profile-user-img">
-          <img src={userInfo.imgUser} alt="profile image" />
+          <img src={userInfo.imgUser} alt="profile image" onClick={uploadImg} />
         </div>
       </div>
       <div>
