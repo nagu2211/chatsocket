@@ -16,86 +16,64 @@
 
 #app {
   display: grid;
-  grid-template-areas: 'sidebar aside main main';
+  grid-template-areas: 'sidebar aside main';
   grid-template-columns: 1fr 8fr 11fr;
 }
 /* navbar sidebar */
 .sidebar {
   border-right-style: solid;
+  grid-area: sidebar;
   border-right-color: rgba(134, 150, 160, 0.15);
   background-color: #314049;
-  grid-area: sidebar;
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra verticalmente */
+  align-items: center; /* Centra horizontalmente */
+  max-width: 70px;
   overflow-y: auto;
-  justify-content: center;
-  align-items: center;
-}
-.sidebar nav {
-  position: absolute;
-  height: 100%;
-  width: 59px;
-  overflow: hidden;
-  transition: width 0.2s linear;
-  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-}
-nav ul li {
-  cursor: pointer;
-  position: relative;
-  color: #aebac1;
-  font-size: 14px;
-  display: table;
-  padding: 10px;
-  
 }
 
+.sidebar nav {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%; 
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  transition: width 0.2s linear;
+}
+nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+nav ul li {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+  color: #b9b9b9;
+}
+button{
+  cursor: pointer;
+    list-style: none;
+    background-color: #314049;
+    color: #b9b9b9;
+}
 .fas {
   position: relative;
   width: 39px;
   height: 40px;
-  top: 10px;
   font-size: 20px;
   text-align: center;
   transition: all 0.2s;
 }
 
-.iconHover:hover{
-  font-size: 23px;
+.iconHover:hover {
+  font-size: 21px;
   color: #dbe1e5;
-}
-nav ul li .nav-item {
-  position: relative;
-  top: 12px;
-  margin-left: 10px;
-}
-nav ul .logout {
-  position: absolute;
-  bottom: 0;
-}
-/* tooltip */
-.tooltip {
-  color: #314049;
-  background-color: #ffffff;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.3em 0.6em;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s;
-  border-radius: 50px;
-}
-
-.tooltip::before {
-  background-color: #ffffff;
-  position: absolute;
-  content: '';
-  height: 0.6em;
-  width: 0.6em;
-  bottom: -0.2em;
-  left: 50%;
-  transform: translate(-50%) rotate(45deg);
 }
 
 /* aside */
@@ -458,10 +436,10 @@ input-search:hover {
 }
 
 .chat-image {
-  max-width: 100%; 
-  height: auto; 
-  width: 200px; 
-  height: 200px; 
+  max-width: 100%;
+  height: auto;
+  width: 200px;
+  height: 200px;
   cursor: pointer;
   padding: 5px 5px 5px 5px;
   border-radius: 18px 0px 18px 18px;
@@ -589,3 +567,97 @@ input-search:hover {
 
 /* online */
 /* media queries  */
+@media (max-width: 1300px) {
+  .fas {
+    width: 30px;
+  }
+}
+@media (max-width: 1200px) {
+  .fas {
+    width: 20px;
+  }
+}
+@media (max-width: 1080px) {
+  .main {
+    display: none; /* Ocultar .main */
+  }
+  #app {
+    grid-template-areas: 'sidebar aside'; /* Redefinir las áreas del grid */
+    grid-template-columns: 1fr 11fr; /* Eliminar la columna correspondiente a .main */
+  }
+  .fas {
+    width: 40px;
+  }
+  .sidebar{
+    max-width: 88px;
+  }
+}
+@media (max-width: 753px) {
+  .fas {
+    width: 20px;
+  }
+}
+/* Media queries para dispositivos móviles */
+/* Media queries para dispositivos móviles */
+@media (max-width: 615px) {
+  #app {
+    grid-template-areas:
+      'aside'
+      'sidebar'; 
+    grid-template-columns: 1fr; 
+  }
+
+  .sidebar {
+    max-width: 100%;
+    flex-direction: row; 
+    width: 100vw; 
+    overflow-x: auto; 
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    z-index: 1000; 
+    background-color: #314049; /* Añadir un fondo para visibilidad */
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1); 
+    height: 50px; 
+    display: flex;
+    align-items: center; 
+  }
+
+  .sidebar nav {
+    flex-direction: row; 
+    width: 100%; 
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: row; 
+    
+    width: auto; 
+    box-sizing: border-box; 
+  }
+
+  nav ul li {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    padding: 0px 15px; 
+    text-align: center; 
+    width: auto; 
+    margin-top: 10px;
+  }
+  button{
+    margin-top: 10px;
+    padding-right: 15px;
+  }
+  .fas {
+    width: 30px; 
+    font-size: 22px; 
+    color: #dbe1e5;
+  }
+  .iconHover:hover {
+    font-size: 22px;
+  }
+  .container-barchat {
+    max-height: 62vh;
+  }
+}

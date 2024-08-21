@@ -55,13 +55,15 @@ const Sidebar = () => {
           <li>
             <i className="iconHover fas fa-solid fa-gear"></i>
           </li>
-          <button onClick={() => logout()}>
+          
+        </ul>
+        <button onClick={() => logout()}>
             <li className="logout">
               <i className="iconHover fas fa-sign-out-alt"></i>
             </li>
           </button>
-        </ul>
       </nav>
+     
     </section>
   );
 };
