@@ -598,7 +598,6 @@ input-search:hover {
   }
 }
 /* Media queries para dispositivos móviles */
-/* Media queries para dispositivos móviles */
 @media (max-width: 615px) {
   #app {
     grid-template-areas:
@@ -616,7 +615,7 @@ input-search:hover {
     bottom: 0; 
     left: 0; 
     z-index: 1000; 
-    background-color: #314049; /* Añadir un fondo para visibilidad */
+    background-color: #314049; 
     box-shadow: 0 -2px 4px rgba(0,0,0,0.1); 
     height: 50px; 
     display: flex;
@@ -659,5 +658,13 @@ input-search:hover {
   }
   .container-barchat {
     max-height: 62vh;
+  }
+}
+@media (max-width: 564px) {
+  .content-chat {
+    display: none;
+  }
+  .info-chat {
+    width: 100%;
   }
 }
