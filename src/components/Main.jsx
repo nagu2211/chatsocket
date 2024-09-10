@@ -1,11 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import UploadFile from './UploadFile';
+import { useParams } from "react-router-dom";
 import Swal from 'sweetalert2';
 
 const socket = io('http://localhost:3000');
 
-const Main = ({ selectedChat, messages, onSendMessage }) => {
+const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
+  const {id} = useParams();
   const boxMessages = useRef(null);
   const messageInput = useRef('');
 
@@ -110,7 +112,7 @@ const Main = ({ selectedChat, messages, onSendMessage }) => {
   }, [messages]);
 
   return (
-    <main className="main">
+    <main className={`main ${windowWidth < 1080 ? 'show-chat' : '' } `}>
       <div className="chat-wrap">
         <div className="header">
           {selectedChat ? (

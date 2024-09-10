@@ -4,7 +4,7 @@ import Main from './components/Main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Profile from './components/Profile';
 import Contacts from './components/Contacts';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -106,7 +106,7 @@ function App() {
       newMsg: 2,
     },
   ];
-
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [selectedChat, setSelectedChat] = useState(null);
   const [messages, setMessages] = useState(
     infoContacts.reduce((acc, contact) => {
@@ -114,7 +114,20 @@ function App() {
       return acc;
     }, {})
   );
+  useEffect(() => {
+    // Función que se ejecutará cuando la ventana cambie de tamaño
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
 
+    // Agregar el event listener
+    window.addEventListener('resize', handleResize);
+
+    // Limpiar el event listener cuando el componente se desmonte
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   const handleSelectChat = (chat) => {
     setSelectedChat(chat);
   };
@@ -134,9 +147,10 @@ function App() {
       <BrowserRouter>
         <Sidebar />
         <Routes>
-          <Route exact path="/" element={<Aside infoContacts={infoContacts} onSelectChat={handleSelectChat} user={userInfo}/>} />
+          <Route exact path="/" element={<Aside infoContacts={infoContacts} onSelectChat={handleSelectChat} user={userInfo} windowWidth={windowWidth} />} />
           <Route exact path="/profile" element={<Profile userInfo={userInfo} setUserInfo={setUserInfo} />} />
           <Route exact path="/contacts" element={<Contacts chats={infoContacts} onSelectChat={handleSelectChat} />} />
+          <Route exact path="/chat/:id" element={<Main selectedChat={selectedChat} messages={messages[selectedChat ? selectedChat.id : null] || []} onSendMessage={handleSendMessage} windowWidth={windowWidth} />} />
         </Routes>
       </BrowserRouter>
       <Main selectedChat={selectedChat} messages={messages[selectedChat ? selectedChat.id : null] || []} onSendMessage={handleSendMessage} />

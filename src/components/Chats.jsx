@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Chats = ({ chats, onSelectChat, userInfo}) => {
+const Chats = ({ chats, onSelectChat, userInfo,windowWidth}) => {
   const [hoveredChatId, setHoveredChatId] = useState(null);
 
   const [chatList, setChatList] = useState(chats);
@@ -65,7 +65,9 @@ const Chats = ({ chats, onSelectChat, userInfo}) => {
       <section className="container-barchat">
         <h4 className="sub-title-aside">PINNED CHATS</h4>
         {filteredChats(pinnedChats).map((chat) => (
-          <div className="barchat" key={chat.id}  onClick={() => { markAsRead(chat.id); onSelectChat(chat); }}>
+          <div key={chat.id}>
+          <Link to={windowWidth < 1080 ? `/chat/${chat.id}` : `/`}>
+          <div className="barchat" onClick={() => { markAsRead(chat.id); onSelectChat(chat); }}>
             <div className="profile-img-chat">
               <img src={chat.img} alt="" />
             </div>
@@ -87,9 +89,13 @@ const Chats = ({ chats, onSelectChat, userInfo}) => {
               </div>
             </div>
           </div>
+          </Link>
+          </div>
         ))}
         <h4 className="sub-title-aside">RECENT CHATS</h4>
         {filteredChats(recentChats).map((chat) => (
+          <div key={chat.id}>
+          <Link to={windowWidth < 1080 ? `/chat/${chat.id}` : `/`}>
           <div className="barchat" key={chat.id} onClick={() => { markAsRead(chat.id); onSelectChat(chat); }} onMouseEnter={() => setHoveredChatId(chat.id)} onMouseLeave={() => setHoveredChatId(null)}>
             <div className="profile-img-chat">
               <img src={chat.img} alt="" />
@@ -126,10 +132,14 @@ const Chats = ({ chats, onSelectChat, userInfo}) => {
               )
             )}
           </div>
+          </Link>
+          </div>
         ))}
 
         <h4 className="sub-title-aside">MUTED CHATS</h4>
         {filteredChats(mutedChats).map((chat) => (
+          <div key={chat.id}>
+          <Link to={windowWidth < 1080 ? `/chat/${chat.id}` : `/`}>
           <div className="barchat" key={chat.id} onClick={() => { markAsRead(chat.id); onSelectChat(chat); }}>
             <div className="profile-img-chat">
               <img src={chat.img} alt="" />
@@ -151,6 +161,8 @@ const Chats = ({ chats, onSelectChat, userInfo}) => {
                 <i className="fa-solid fa-volume-xmark"></i>
               </div>
             </div>
+          </div>
+          </Link>
           </div>
         ))}
       </section>

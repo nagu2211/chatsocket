@@ -171,6 +171,7 @@ button{
 .info-chat .name-chat {
   font-weight: bold;
   font-size: 17px;
+  color: black;
 }
 .info-chat .info-contact {
   display: flex;
@@ -579,7 +580,12 @@ input-search:hover {
 }
 @media (max-width: 1080px) {
   .main {
-    display: none; /* Ocultar .main */
+    display: none;
+  }
+  .main.show-chat {
+    display: block;
+    grid-area: aside;
+    width: 100%;
   }
   #app {
     grid-template-areas: 'sidebar aside'; /* Redefinir las áreas del grid */
@@ -605,7 +611,9 @@ input-search:hover {
       'sidebar'; 
     grid-template-columns: 1fr; 
   }
-
+  .chat-wrap{
+    margin-bottom: 40px;
+  }
   .sidebar {
     max-width: 100%;
     flex-direction: row; 
@@ -644,7 +652,7 @@ input-search:hover {
     width: auto; 
     margin-top: 10px;
   }
-  button{
+  nav ul button{
     margin-top: 10px;
     padding-right: 15px;
   }
