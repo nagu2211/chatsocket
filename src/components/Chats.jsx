@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const Chats = ({ chats, onSelectChat, userInfo,windowWidth}) => {
+const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
   const [hoveredChatId, setHoveredChatId] = useState(null);
 
   const [chatList, setChatList] = useState(chats);
 
   const [filter, setFilter] = useState('all');
 
+  const navigate = useNavigate();
+
   const togglePin = (id) => {
-    setChatList(chatList.map((chat) => (chat.id === id ? { ...chat, pinned: !chat.pinned } : chat)));
+    setChatList((prevList) => prevList.map((chat) => (chat.id === id ? { ...chat, pinned: !chat.pinned } : chat)));
   };
 
   const toggleMute = (id) => {
-    setChatList(chatList.map((chat) => (chat.id === id ? { ...chat, muted: !chat.muted } : chat)));
+    setChatList((prevList) => prevList.map((chat) => (chat.id === id ? { ...chat, muted: !chat.muted } : chat)));
   };
 
   const markAsRead = (id) => {
@@ -40,8 +43,6 @@ const Chats = ({ chats, onSelectChat, userInfo,windowWidth}) => {
         </span>
       </header>
       <Link to="/profile">
-      
-
         <div className="me-barchat">
           <div className="me-profile-img">
             <img src={userInfo.imgUser} alt="user image profile" />
@@ -51,7 +52,6 @@ const Chats = ({ chats, onSelectChat, userInfo,windowWidth}) => {
             <span className="me-online"> Available </span>
           </div>
         </div>
-        
       </Link>
       <div className="btn-aside-container">
         <button className="btn-aside" onClick={() => setFilter('all')}>
@@ -64,63 +64,32 @@ const Chats = ({ chats, onSelectChat, userInfo,windowWidth}) => {
 
       <section className="container-barchat">
         <h4 className="sub-title-aside">PINNED CHATS</h4>
-        {filteredChats(pinnedChats).map((chat) => (
-          <div key={chat.id}>
-          <Link to={windowWidth < 1080 ? `/chat/${chat.id}` : `/`}>
-          <div className="barchat" onClick={() => { markAsRead(chat.id); onSelectChat(chat); }}>
-            <div className="profile-img-chat">
-              <img src={chat.img} alt="" />
-            </div>
-            <div className="info-chat">
-              <span className="name-chat">
-                {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
-              </span>
-            </div>
-            <div className="icons-action-barchat">
-              {chat.newMsg > 0 ? <div className="noti-aside">{chat.newMsg}</div> : <div className="noti-aside hidden"></div>}
+        {filteredChats(pinnedChats).map((chat) =>
+          chat.msgs.length === 0 ? null : (
+            <div key={chat.id}>
               <div
-                className="pin-aside"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  togglePin(chat.id);
+                className="barchat"
+                onClick={() => {
+                  markAsRead(chat.id);
+                  onSelectChat(chat);
+                  if (windowWidth < 1080) {
+                    navigate(`/chat/${chat.id}`);
+                  }
                 }}
               >
-                <i className="fa-solid fa-thumbtack"></i>
-              </div>
-            </div>
-          </div>
-          </Link>
-          </div>
-        ))}
-        <h4 className="sub-title-aside">RECENT CHATS</h4>
-        {filteredChats(recentChats).map((chat) => (
-          <div key={chat.id}>
-          <Link to={windowWidth < 1080 ? `/chat/${chat.id}` : `/`}>
-          <div className="barchat" key={chat.id} onClick={() => { markAsRead(chat.id); onSelectChat(chat); }} onMouseEnter={() => setHoveredChatId(chat.id)} onMouseLeave={() => setHoveredChatId(null)}>
-            <div className="profile-img-chat">
-              <img src={chat.img} alt="" />
-            </div>
-            <div className="info-chat">
-              <span className="name-chat">
-                {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
-              </span>
-            </div>
-            {chat.newMsg > 0 ? (
-              <div className="noti-aside">{chat.newMsg}</div>
-            ) : (
-              hoveredChatId === chat.id && (
+                {' '}
+                <div className="profile-img-chat">
+                  <img src={chat.img} alt="" />
+                </div>
+                <div className="info-chat">
+                  <span className="name-chat">
+                    {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
+                  </span>
+                </div>
                 <div className="icons-action-barchat">
+                  {chat.newMsg > 0 ? <div className="noti-aside">{chat.newMsg}</div> : <div className="noti-aside hidden"></div>}
                   <div
-                    className="action-barchat"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleMute(chat.id);
-                    }}
-                  >
-                    <i className="fa-solid fa-volume-xmark"></i>
-                  </div>
-                  <div
-                    className="action-barchat"
+                    className="pin-aside"
                     onClick={(e) => {
                       e.stopPropagation();
                       togglePin(chat.id);
@@ -129,42 +98,105 @@ const Chats = ({ chats, onSelectChat, userInfo,windowWidth}) => {
                     <i className="fa-solid fa-thumbtack"></i>
                   </div>
                 </div>
-              )
-            )}
-          </div>
-          </Link>
-          </div>
-        ))}
-
-        <h4 className="sub-title-aside">MUTED CHATS</h4>
-        {filteredChats(mutedChats).map((chat) => (
-          <div key={chat.id}>
-          <Link to={windowWidth < 1080 ? `/chat/${chat.id}` : `/`}>
-          <div className="barchat" key={chat.id} onClick={() => { markAsRead(chat.id); onSelectChat(chat); }}>
-            <div className="profile-img-chat">
-              <img src={chat.img} alt="" />
-            </div>
-            <div className="info-chat">
-              <span className="name-chat">
-                {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
-              </span>
-            </div>
-            <div className="icons-action-barchat">
-              {chat.newMsg > 0 ? <div className="noti-aside">{chat.newMsg}</div> : <div className="noti-aside hidden"></div>}
-              <div
-                className="pin-aside"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleMute(chat.id);
-                }}
-              >
-                <i className="fa-solid fa-volume-xmark"></i>
               </div>
             </div>
-          </div>
-          </Link>
-          </div>
-        ))}
+          )
+        )}
+        <h4 className="sub-title-aside">RECENT CHATS</h4>
+        {filteredChats(recentChats).map((chat) =>
+          chat.msgs.length === 0 ? null : (
+            <div key={chat.id}>
+              <div
+                className="barchat"
+                key={chat.id}
+                onClick={() => {
+                  markAsRead(chat.id);
+                  onSelectChat(chat);
+                  if (windowWidth < 1080) {
+                    navigate(`/chat/${chat.id}`);
+                  }
+                }}
+                onMouseEnter={() => setHoveredChatId(chat.id)}
+                onMouseLeave={() => setHoveredChatId(null)}
+              >
+                <div className="profile-img-chat">
+                  <img src={chat.img} alt="" />
+                </div>
+                <div className="info-chat">
+                  <span className="name-chat">
+                    {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
+                  </span>
+                </div>
+                {chat.newMsg > 0 ? (
+                  <div className="noti-aside">{chat.newMsg}</div>
+                ) : (
+                  hoveredChatId === chat.id && (
+                    <div className="icons-action-barchat">
+                      <div
+                        className="action-barchat"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleMute(chat.id);
+                        }}
+                      >
+                        <i className="fa-solid fa-volume-xmark"></i>
+                      </div>
+                      <div
+                        className="action-barchat"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          togglePin(chat.id);
+                        }}
+                      >
+                        <i className="fa-solid fa-thumbtack"></i>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
+          )
+        )}
+
+        <h4 className="sub-title-aside">MUTED CHATS</h4>
+        {filteredChats(mutedChats).map((chat) =>
+          chat.msgs.length === 0 ? null : (
+            <div key={chat.id}>
+              <div
+                className="barchat"
+                key={chat.id}
+                onClick={() => {
+                  markAsRead(chat.id);
+                  onSelectChat(chat);
+                  if (windowWidth < 1080) {
+                    navigate(`/chat/${chat.id}`);
+                  }
+                }}
+              >
+                <div className="profile-img-chat">
+                  <img src={chat.img} alt="" />
+                </div>
+                <div className="info-chat">
+                  <span className="name-chat">
+                    {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
+                  </span>
+                </div>
+                <div className="icons-action-barchat">
+                  {chat.newMsg > 0 ? <div className="noti-aside">{chat.newMsg}</div> : <div className="noti-aside hidden"></div>}
+                  <div
+                    className="pin-aside"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleMute(chat.id);
+                    }}
+                  >
+                    <i className="fa-solid fa-volume-xmark"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        )}
       </section>
     </>
   );

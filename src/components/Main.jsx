@@ -136,16 +136,18 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
             </div>
           ))}
         </div>
+          <form onSubmit={send}>
         <div className="text-area">
           <UploadFile onFileSend={handleFileSend} />
-          <input ref={messageInput} type="text" className="mensaje" id="message-area" placeholder="Aa" onKeyPress={handleKeyPress} />
-          <button className="btn-send" type="button" onClick={send}>
+          <input ref={messageInput} type="text" className="mensaje" id="message-area" placeholder="Aa" onKeyPress={handleKeyPress} required/>
+          <button className="btn-send" type="submit">
             <i className="bi bi-send"></i>
           </button>
           <button type="button" className="btn-stycker">
             <i className="bi bi-emoji-smile"></i>
           </button>
         </div>
+          </form>
       </div>
     </main>
   );

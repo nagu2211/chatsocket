@@ -14,7 +14,7 @@ function App() {
     name: 'Santiago A',
     info: 'Lorem ipsum dolor sit amet asd',
   });
-  const infoContacts = [
+  const infoChats = [
     {
       id: 1,
       img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
@@ -25,7 +25,7 @@ function App() {
         { type: 'from', msg: 'Hi! How are you?' },
         { type: 'to', msg: 'I am good, thank you!😊' },
       ],
-      lastMessage: 'Lorem ipsum dolor sit amet',
+      lastMessage: 'I am good, thank you!😊',
       pinned: true,
       muted: false,
       newMsg: 1,
@@ -40,7 +40,7 @@ function App() {
         { type: 'from', msg: 'Hi! What are you doing?' },
         { type: 'to', msg: 'Just working on a project.' },
       ],
-      lastMessage: 'Lorem ipsum dolor sit amet',
+      lastMessage: 'Just working on a project.',
       pinned: false,
       muted: true,
       newMsg: 3,
@@ -55,7 +55,7 @@ function App() {
         { type: 'from', msg: 'Hi! What are you doing?' },
         { type: 'to', msg: 'Just working on a project.' },
       ],
-      lastMessage: 'Lorem ipsum dolor sit amet',
+      lastMessage: 'Just working on a project.',
       pinned: false,
       muted: false,
       newMsg: 0,
@@ -70,7 +70,7 @@ function App() {
         { type: 'from', msg: 'Hi! What are you doing?' },
         { type: 'to', msg: 'Just working on a project.' },
       ],
-      lastMessage: 'Lorem ipsum dolor sit amet',
+      lastMessage: 'Just working on a project.',
       pinned: false,
       muted: false,
       newMsg: 0,
@@ -85,7 +85,7 @@ function App() {
         { type: 'from', msg: 'Hi! What are you doing?' },
         { type: 'to', msg: 'Just working on a project.' },
       ],
-      lastMessage: 'Lorem ipsum dolor sit amet',
+      lastMessage: 'Just working on a project.',
       pinned: false,
       muted: false,
       newMsg: 0,
@@ -100,30 +100,55 @@ function App() {
         { type: 'from', msg: 'Hi! What are you doing?' },
         { type: 'to', msg: 'Just working on a project.' },
       ],
-      lastMessage: 'Lorem ipsum dolor sit amet',
+      lastMessage: 'Just working on a project.',
       pinned: false,
       muted: false,
       newMsg: 2,
+    },
+    {
+      id: 7,
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
+      name: 'Santiago G',
+      info: 'Lorem ipsum dolor sit amet asd',
+      msgs: []
+    },
+    {
+      id: 8,
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
+      name: 'Santiago H',
+      info: 'Lorem ipsum dolor sit amet asd',
+      msgs: []
+    },
+    {
+      id: 9,
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
+      name: 'Santiago I',
+      info: 'Lorem ipsum dolor sit amet asd',
+      msgs: []
+    },
+    {
+      id: 10,
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
+      name: 'Santiago J',
+      info: 'Lorem ipsum dolor sit amet asd',
+      msgs: []
     },
   ];
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [selectedChat, setSelectedChat] = useState(null);
   const [messages, setMessages] = useState(
-    infoContacts.reduce((acc, contact) => {
+    infoChats.reduce((acc, contact) => {
       acc[contact.id] = contact.msgs;
       return acc;
     }, {})
   );
   useEffect(() => {
-    // Función que se ejecutará cuando la ventana cambie de tamaño
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    // Agregar el event listener
     window.addEventListener('resize', handleResize);
 
-    // Limpiar el event listener cuando el componente se desmonte
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -147,10 +172,14 @@ function App() {
       <BrowserRouter>
         <Sidebar />
         <Routes>
-          <Route exact path="/" element={<Aside infoContacts={infoContacts} onSelectChat={handleSelectChat} user={userInfo} windowWidth={windowWidth} />} />
+          <Route exact path="/" element={<Aside infoChats={infoChats} onSelectChat={handleSelectChat} user={userInfo} windowWidth={windowWidth} />} />
           <Route exact path="/profile" element={<Profile userInfo={userInfo} setUserInfo={setUserInfo} />} />
-          <Route exact path="/contacts" element={<Contacts chats={infoContacts} onSelectChat={handleSelectChat} />} />
-          <Route exact path="/chat/:id" element={<Main selectedChat={selectedChat} messages={messages[selectedChat ? selectedChat.id : null] || []} onSendMessage={handleSendMessage} windowWidth={windowWidth} />} />
+          <Route exact path="/contacts" element={<Contacts chats={infoChats} onSelectChat={handleSelectChat} />} />
+          <Route
+            exact
+            path="/chat/:id"
+            element={<Main selectedChat={selectedChat} messages={messages[selectedChat ? selectedChat.id : null] || []} onSendMessage={handleSendMessage} windowWidth={windowWidth} />}
+          />
         </Routes>
       </BrowserRouter>
       <Main selectedChat={selectedChat} messages={messages[selectedChat ? selectedChat.id : null] || []} onSendMessage={handleSendMessage} />
