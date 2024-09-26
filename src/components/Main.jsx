@@ -43,7 +43,8 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
     scrollBottom();
   }, [messages]);
 
-  const send = () => {
+  const send = (e) => {
+    e.preventDefault()
     if (messageInput.current.value.trim() === '') {
       messageInput.current.focus();
     } else {
