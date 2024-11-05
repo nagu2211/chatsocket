@@ -34,13 +34,12 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
     return chatsArray;
   };
 
+
   return (
     <>
       <header className="header-chats">
         <h2 className="title-chats">Chats</h2>
-        <span>
-          <i className="fas fa-solid fa-user-plus"></i>
-        </span>
+        
       </header>
       <Link to="/profile">
         <div className="me-barchat">
