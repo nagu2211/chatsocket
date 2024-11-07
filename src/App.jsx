@@ -47,7 +47,6 @@ function App() {
       };
     });
   };
-
   return (
     <div id="app" className="appClass">
       <BrowserRouter>

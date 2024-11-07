@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { nanoid } from 'nanoid'
 import Modal from 'react-modal';
 
+
 const Contacts = ({ chats, onSelectChat }) => {
-  const [contactList, setContactList] = useState(chats);
+  const [contactList, setContactList] = useState(() => JSON.parse(localStorage.getItem('contacts')) || chats);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,6 +33,8 @@ const Contacts = ({ chats, onSelectChat }) => {
 
   const filteredChats = contactList.filter((chat) => chat.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
+  Modal.setAppElement('#root');
+
   const {
     register,
     formState: { errors },
@@ -39,11 +43,25 @@ const Contacts = ({ chats, onSelectChat }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    let imgUser
+    if (data.gender == "male") {
+      imgUser = "./assets/maleUser.png"
+    } else if (data.gender == "fem") {
+      imgUser = "./assets/femaleUser.png"
+    } else {
+      imgUser = "./assets/user.png"
+    }
+    
+    const newContact = { ...data, id:nanoid(10),img:imgUser };
+    const updatedChats = [...contactList,newContact];
+
+    localStorage.setItem('contacts', JSON.stringify(updatedChats));
+    setContactList(updatedChats);
+    closeModal();
   };
 
   const addAdress = watch('addAdress');
-  Modal.setAppElement('#root');
+
   const customStyles = {
     content: {
       top: '50%',
@@ -165,12 +183,15 @@ const Contacts = ({ chats, onSelectChat }) => {
                 )}
               </div>
               <div className="column">
-              <input type="submit" value="Add Contact" className='buttons-submit green'/>
-              <button onClick={closeModal} className='buttons-submit grey'>Close</button>
+                <input type="submit" value="Add Contact" className="buttons-submit green" />
+                <button onClick={closeModal} className="buttons-submit grey">
+                  Close
+                </button>
               </div>
             </form>
           </section>
         </Modal>
+
         {filteredChats.map((chat) => (
           <div className="barchat" key={chat.id} onClick={() => onSelectChat(chat)}>
             <div className="profile-img-chat margin-top">

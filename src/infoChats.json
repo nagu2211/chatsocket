@@ -1,13 +1,22 @@
 [
   {
-    "id": 1,
+    "id": "aJL_HfaRxQ",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s",
     "name": "Santiago A",
     "info": "Lorem ipsum dolor sit amet asd",
     "msgs": [
-      { "type": "to", "msg": "Hello Santiago A!" },
-      { "type": "from", "msg": "Hi! How are you?" },
-      { "type": "to", "msg": "I am good, thank you!😊" }
+      {
+        "type": "to",
+        "msg": "Hello Santiago A!"
+      },
+      {
+        "type": "from",
+        "msg": "Hi! How are you?"
+      },
+      {
+        "type": "to",
+        "msg": "I am good, thank you!😊"
+      }
     ],
     "lastMessage": "I am good, thank you!😊",
     "pinned": true,
@@ -15,14 +24,23 @@
     "newMsg": 1
   },
   {
-    "id": 2,
+    "id": "S5C5n0L4s5",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s",
     "name": "Santiago B",
     "info": "Lorem ipsum dolor sit amet asd",
     "msgs": [
-      { "type": "to", "msg": "Hello Santiago B!" },
-      { "type": "from", "msg": "Hi! What are you doing?" },
-      { "type": "to", "msg": "Just working on a project." }
+      {
+        "type": "to",
+        "msg": "Hello Santiago B!"
+      },
+      {
+        "type": "from",
+        "msg": "Hi! What are you doing?"
+      },
+      {
+        "type": "to",
+        "msg": "Just working on a project."
+      }
     ],
     "lastMessage": "Just working on a project.",
     "pinned": false,
@@ -30,14 +48,23 @@
     "newMsg": 3
   },
   {
-    "id": 3,
+    "id": "siJRaw7R00",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s",
     "name": "Santiago C",
     "info": "Lorem ipsum dolor sit amet asd",
     "msgs": [
-      { "type": "to", "msg": "Hello Santiago C!" },
-      { "type": "from", "msg": "Hi! What are you doing?" },
-      { "type": "to", "msg": "Just working on a project." }
+      {
+        "type": "to",
+        "msg": "Hello Santiago C!"
+      },
+      {
+        "type": "from",
+        "msg": "Hi! What are you doing?"
+      },
+      {
+        "type": "to",
+        "msg": "Just working on a project."
+      }
     ],
     "lastMessage": "Just working on a project.",
     "pinned": false,
@@ -45,14 +72,23 @@
     "newMsg": 0
   },
   {
-    "id": 4,
+    "id": "hKt97DtPaA",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s",
     "name": "Santiago D",
     "info": "Lorem ipsum dolor sit amet asd",
     "msgs": [
-      { "type": "to", "msg": "Hello Santiago D!" },
-      { "type": "from", "msg": "Hi! What are you doing?" },
-      { "type": "to", "msg": "Just working on a project." }
+      {
+        "type": "to",
+        "msg": "Hello Santiago D!"
+      },
+      {
+        "type": "from",
+        "msg": "Hi! What are you doing?"
+      },
+      {
+        "type": "to",
+        "msg": "Just working on a project."
+      }
     ],
     "lastMessage": "Just working on a project.",
     "pinned": false,
@@ -60,14 +96,23 @@
     "newMsg": 0
   },
   {
-    "id": 5,
+    "id": "p_BfOBqtdx",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s",
     "name": "Santiago E",
     "info": "Lorem ipsum dolor sit amet asd",
     "msgs": [
-      { "type": "to", "msg": "Hello Santiago E!" },
-      { "type": "from", "msg": "Hi! What are you doing?" },
-      { "type": "to", "msg": "Just working on a project." }
+      {
+        "type": "to",
+        "msg": "Hello Santiago E!"
+      },
+      {
+        "type": "from",
+        "msg": "Hi! What are you doing?"
+      },
+      {
+        "type": "to",
+        "msg": "Just working on a project."
+      }
     ],
     "lastMessage": "Just working on a project.",
     "pinned": false,
@@ -75,14 +120,23 @@
     "newMsg": 0
   },
   {
-    "id": 6,
+    "id": "SWYio9fB9b",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s",
     "name": "Santiago F",
     "info": "Lorem ipsum dolor sit amet asd",
     "msgs": [
-      { "type": "to", "msg": "Hello Santiago F!" },
-      { "type": "from", "msg": "Hi! What are you doing?" },
-      { "type": "to", "msg": "Just working on a project." }
+      {
+        "type": "to",
+        "msg": "Hello Santiago F!"
+      },
+      {
+        "type": "from",
+        "msg": "Hi! What are you doing?"
+      },
+      {
+        "type": "to",
+        "msg": "Just working on a project."
+      }
     ],
     "lastMessage": "Just working on a project.",
     "pinned": false,
@@ -90,28 +144,28 @@
     "newMsg": 2
   },
   {
-    "id": 7,
+    "id": "Y2h4Vu7f6i",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s",
     "name": "Santiago G",
     "info": "Lorem ipsum dolor sit amet asd",
     "msgs": []
   },
   {
-    "id": 8,
+    "id": "ysJ_fRRyEZ",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s",
     "name": "Santiago H",
     "info": "Lorem ipsum dolor sit amet asd",
     "msgs": []
   },
   {
-    "id": 9,
+    "id": "u2wOUcvI52",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s",
     "name": "Santiago I",
     "info": "Lorem ipsum dolor sit amet asd",
     "msgs": []
   },
   {
-    "id": 10,
+    "id": "UK7MryysqZ",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s",
     "name": "Santiago J",
     "info": "Lorem ipsum dolor sit amet asd",
