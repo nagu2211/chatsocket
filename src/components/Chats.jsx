@@ -132,7 +132,7 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
                   hoveredChatId === chat.id && (
                     <div className="icons-action-barchat">
                       <div
-                        className="action-barchat"
+                        className="action-barchat mute"
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleMute(chat.id);
@@ -141,7 +141,7 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
                         <i className="fa-solid fa-volume-xmark"></i>
                       </div>
                       <div
-                        className="action-barchat"
+                        className="action-barchat pin"
                         onClick={(e) => {
                           e.stopPropagation();
                           togglePin(chat.id);

@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 import Modal from 'react-modal';
-
+import Swal from 'sweetalert2';
 
 const Contacts = ({ chats, onSelectChat }) => {
-  const [contactList, setContactList] = useState(() => JSON.parse(localStorage.getItem('contacts')) || chats);
+  const [hoveredChatId, setHoveredChatId] = useState(null);
+  const [contactList, setContactList] = useState(() => {
+    const storedContacts = JSON.parse(localStorage.getItem('contacts'));
+    if (storedContacts && storedContacts.length > 0) {
+      return storedContacts;
+    } else {
+      localStorage.setItem('contacts', JSON.stringify(chats));
+      return chats;
+    }
+  });
   const [modalIsOpen, setIsOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
@@ -43,23 +52,28 @@ const Contacts = ({ chats, onSelectChat }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    let imgUser
-    if (data.gender == "male") {
-      imgUser = "./assets/maleUser.png"
-    } else if (data.gender == "fem") {
-      imgUser = "./assets/femaleUser.png"
+    let imgUser;
+    if (data.gender == 'male') {
+      imgUser = './assets/maleUser.png';
+    } else if (data.gender == 'fem') {
+      imgUser = './assets/femaleUser.png';
     } else {
-      imgUser = "./assets/user.png"
+      imgUser = './assets/user.png';
     }
-    
-    const newContact = { ...data, id:nanoid(10),img:imgUser };
-    const updatedChats = [...contactList,newContact];
+
+    const newContact = { ...data, id: nanoid(10), img: imgUser };
+    const updatedChats = [...contactList, newContact];
 
     localStorage.setItem('contacts', JSON.stringify(updatedChats));
     setContactList(updatedChats);
     closeModal();
   };
-
+  const deleteContact = (id) => {
+    const contacts = JSON.parse(localStorage.getItem('contacts'));
+    const updatedContacts = contacts.filter((contact) => contact.id !== id);
+    localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+    setContactList(updatedContacts);
+  };
   const addAdress = watch('addAdress');
 
   const customStyles = {
@@ -82,6 +96,15 @@ const Contacts = ({ chats, onSelectChat }) => {
 
   function closeModal() {
     setIsOpen(false);
+  }
+
+  function alertDeleteContact() {
+    Swal.fire({
+      icon: "success",
+      title: "The contact has been deleted",
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
   return (
@@ -193,7 +216,7 @@ const Contacts = ({ chats, onSelectChat }) => {
         </Modal>
 
         {filteredChats.map((chat) => (
-          <div className="barchat" key={chat.id} onClick={() => onSelectChat(chat)}>
+          <div className="barchat" key={chat.id} onClick={() => onSelectChat(chat)} onMouseEnter={() => setHoveredChatId(chat.id)} onMouseLeave={() => setHoveredChatId(null)}>
             <div className="profile-img-chat margin-top">
               <img src={chat.img} alt="" />
             </div>
@@ -202,6 +225,22 @@ const Contacts = ({ chats, onSelectChat }) => {
                 {chat.name} <span className="content-chat">{chat.info}</span>
               </span>
             </div>
+
+            {hoveredChatId === chat.id && (
+              <div className="icons-action-barchat">
+                <span
+                  className="action-barchat trash"
+                  id='trash'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteContact(chat.id);
+                    alertDeleteContact()
+                  }}
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </span>
+              </div>
+            )}
           </div>
         ))}
       </section>
