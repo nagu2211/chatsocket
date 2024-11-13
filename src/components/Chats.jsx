@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
+  const [profile, setProfile] = useState(() => {
+    const storedProfile = JSON.parse(localStorage.getItem('profile'));
+    if (storedProfile && storedProfile.length > 0) {
+      return storedProfile;
+    } else {
+      localStorage.setItem('profile', JSON.stringify(userInfo));
+      return storedProfile;
+    }})
   const [hoveredChatId, setHoveredChatId] = useState(null);
 
   const [chatList, setChatList] = useState(chats);
@@ -44,10 +52,10 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
       <Link to="/profile">
         <div className="me-barchat">
           <div className="me-profile-img">
-            <img src={userInfo.imgUser} alt="user image profile" />
+            <img src={profile.imgUser} alt="user image profile" />
           </div>
           <div className="me-info-chat">
-            <span className="me-name">{userInfo.name}</span>
+            <span className="me-name">{profile.name}</span>
             <span className="me-online"> Available </span>
           </div>
         </div>

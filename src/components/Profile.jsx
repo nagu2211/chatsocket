@@ -14,6 +14,7 @@ const Profile = ({ userInfo, setUserInfo }) => {
         imgUser: url,
       }));
       Swal.fire('Image updated successfully!');
+      localStorage.setItem('profile', JSON.stringify(userInfo));
     }
   };
 
@@ -24,6 +25,7 @@ const Profile = ({ userInfo, setUserInfo }) => {
         ...prevUserInfo,
         [field]: newValue,
       }));
+      localStorage.setItem('profile', JSON.stringify(userInfo));
     }
   };
 
