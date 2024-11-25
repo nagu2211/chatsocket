@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,10 +10,43 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
     } else {
       localStorage.setItem('profile', JSON.stringify(userInfo));
       return storedProfile;
-    }})
-  const [hoveredChatId, setHoveredChatId] = useState(null);
+    }
+  });
+  const [chatList, setChatList] = useState(() => {
+    const chatsLs = JSON.parse(localStorage.getItem('contacts'));
+    if (chatsLs && chatsLs.length > 0) {
+      return chatsLs;
+    } else {
+      localStorage.setItem('contacts', JSON.stringify(chats));
+      return chats;
+    }
+  });
+  useEffect(() => {
+    const updateChatList = () => {
+      const chatsLs = JSON.parse(localStorage.getItem('contacts')) || [];
+      setChatList(chatsLs.filter((contact) => contact.msgs && contact.msgs.length > 0));
+    };
 
-  const [chatList, setChatList] = useState(chats);
+    updateChatList();
+
+    const handleStorageChange = () => {
+      updateChatList();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    const originalSetItem = localStorage.setItem;
+    localStorage.setItem = function (key, value) {
+      originalSetItem.apply(this, arguments);
+      handleStorageChange();
+    };
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      localStorage.setItem = originalSetItem; 
+    };
+  }, []);
+  const [hoveredChatId, setHoveredChatId] = useState(null);
 
   const [filter, setFilter] = useState('all');
 
@@ -42,12 +75,10 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
     return chatsArray;
   };
 
-
   return (
     <>
       <header className="header-chats">
         <h2 className="title-chats">Chats</h2>
-        
       </header>
       <Link to="/profile">
         <div className="me-barchat">

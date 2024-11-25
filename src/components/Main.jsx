@@ -43,8 +43,7 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
     scrollBottom();
   }, [messages]);
 
-  const send = (e) => {
-    e.preventDefault()
+  const send = () => {
     if (messageInput.current.value.trim() === '') {
       messageInput.current.focus();
     } else {
@@ -56,9 +55,31 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
     }
   };
 
-  const handleKeyPress = (event) => {
+  const handleSendMessage = (chatId, type = "to") => {
+    const storedContacts = JSON.parse(localStorage.getItem('contacts')) || [];
+    const messageText = messageInput.current.value.trim();
+    const updatedContacts = storedContacts.map((contact) => {
+      if (contact.id === chatId) {
+        const newMessage = { type, msg: messageText };
+        const updatedMsgs = [...(contact.msgs || []), newMessage];
+  
+        return {
+          ...contact,
+          msgs: updatedMsgs,
+          lastMessage: messageText,
+        };
+      }
+      return contact;
+    });
+  
+    localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+  };
+
+  const handleKeyPress = (event,selectedChatId) => {
     if (event.key === 'Enter') {
-      send();
+      handleSendMessage(selectedChatId);
+      event.preventDefault();
+      send(event);
     }
   };
 
@@ -74,7 +95,7 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
     });
 
     const data = await res.json();
-    const msg = `<img src="${data.secure_url}" alt="submitted image" class="chat-image" />`;
+    const msg = `<img src="${data.secure_url}" alt="submitted image" className="chat-image" />`;
 
     const msgId = `${clientId}-${Date.now()}`;
     onSendMessage(msg, selectedChat.id);
@@ -140,7 +161,7 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
           <form onSubmit={send}>
         <div className="text-area">
           <UploadFile onFileSend={handleFileSend} />
-          <input ref={messageInput} type="text" className="mensaje" id="message-area" placeholder="Aa" onKeyPress={handleKeyPress} required/>
+          <input ref={messageInput} type="text" className="mensaje" id="message-area" placeholder="Aa"  onKeyDown={(event) => handleKeyPress(event, selectedChat?.id)} required/>
           <button className="btn-send" type="submit">
             <i className="bi bi-send"></i>
           </button>

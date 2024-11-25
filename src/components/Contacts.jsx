@@ -15,6 +15,7 @@ const Contacts = ({ chats, onSelectChat }) => {
       return chats;
     }
   });
+ 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
@@ -237,7 +238,7 @@ const Contacts = ({ chats, onSelectChat }) => {
                     alertDeleteContact()
                   }}
                 >
-                  <i class="fa-solid fa-trash"></i>
+                  <i className="fa-solid fa-trash"></i>
                 </span>
               </div>
             )}
