@@ -14,17 +14,21 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
   });
   const [chatList, setChatList] = useState(() => {
     const chatsLs = JSON.parse(localStorage.getItem('contacts'));
-    if (chatsLs && chatsLs.length > 0) {
-      return chatsLs;
+    if (chatsLs && Array.isArray(chatsLs)) {
+      return chatsLs.map((chat) => ({
+        ...chat,
+        msgs: chat.msgs || [],
+      }));
     } else {
       localStorage.setItem('contacts', JSON.stringify(chats));
       return chats;
     }
   });
+
   useEffect(() => {
     const updateChatList = () => {
       const chatsLs = JSON.parse(localStorage.getItem('contacts')) || [];
-      setChatList(chatsLs.filter((contact) => contact.msgs && contact.msgs.length > 0));
+      setChatList(chatsLs);
     };
 
     updateChatList();
@@ -43,7 +47,7 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);
-      localStorage.setItem = originalSetItem; 
+      localStorage.setItem = originalSetItem;
     };
   }, []);
   const [hoveredChatId, setHoveredChatId] = useState(null);
@@ -53,7 +57,11 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
   const navigate = useNavigate();
 
   const togglePin = (id) => {
-    setChatList((prevList) => prevList.map((chat) => (chat.id === id ? { ...chat, pinned: !chat.pinned } : chat)));
+    setChatList((prevList) => {
+      const updatedList = prevList.map((chat) => (chat.id === id ? { ...chat, pinned: !chat.pinned } : chat));
+      localStorage.setItem('contacts', JSON.stringify(updatedList));
+      return updatedList;
+    });
   };
 
   const toggleMute = (id) => {

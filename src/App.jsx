@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Profile from './components/Profile';
 import Contacts from './components/Contacts';
 import React, { useState, useEffect } from 'react';
-import infoChats from "./infoChats.json"
+import infoChatsJson from "./infoChats.json"
 import './App.css';
 
 function App() {
@@ -14,7 +14,10 @@ function App() {
     name: 'Santiago A',
     info: 'Lorem ipsum dolor sit amet asd',
   });
-
+  const [infoChats, setInfoChats] = useState(() => {
+    const storedContacts = JSON.parse(localStorage.getItem('contacts'));
+    return storedContacts || infoChatsJson;
+  });
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [selectedChat, setSelectedChat] = useState(null);
   const [messages, setMessages] = useState(
@@ -34,6 +37,7 @@ function App() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+  
   const handleSelectChat = (chat) => {
     setSelectedChat(chat);
   };

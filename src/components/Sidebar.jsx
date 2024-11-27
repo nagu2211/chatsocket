@@ -52,9 +52,6 @@ const Sidebar = () => {
               <i className="iconHover fas fa-solid fa-users"></i>
             </li>
           </Link>
-          <li>
-            <i className="iconHover fas fa-solid fa-gear"></i>
-          </li>
           
         </ul>
         <button onClick={() => logout()}>

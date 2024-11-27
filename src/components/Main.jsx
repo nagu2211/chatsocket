@@ -1,13 +1,14 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import UploadFile from './UploadFile';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const socket = io('http://localhost:3000');
 
-const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
-  const {id} = useParams();
+const Main = ({ selectedChat, messages, onSendMessage, windowWidth }) => {
+  
+  const { id } = useParams();
   const boxMessages = useRef(null);
   const messageInput = useRef('');
 
@@ -17,20 +18,19 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
     const handleConnect = () => {
       setClientId(socket.id);
     };
-
     const handleMessage = (data) => {
       if (data.senderId !== clientId && selectedChat && selectedChat.id === data.contactId) {
         onSendMessage(data.msg, data.contactId);
       }
     };
-
     socket.on('connect', handleConnect);
     socket.on('message', handleMessage);
-
+    console.log(selectedChat);
     return () => {
       socket.off('connect', handleConnect);
       socket.off('message', handleMessage);
     };
+    
   }, [clientId, selectedChat, onSendMessage]);
 
   const scrollBottom = () => {
@@ -55,14 +55,13 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
     }
   };
 
-  const handleSendMessage = (chatId, type = "to") => {
+  const handleSendMessage = (chatId, type = 'from') => {
     const storedContacts = JSON.parse(localStorage.getItem('contacts')) || [];
     const messageText = messageInput.current.value.trim();
     const updatedContacts = storedContacts.map((contact) => {
       if (contact.id === chatId) {
         const newMessage = { type, msg: messageText };
         const updatedMsgs = [...(contact.msgs || []), newMessage];
-  
         return {
           ...contact,
           msgs: updatedMsgs,
@@ -71,11 +70,11 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
       }
       return contact;
     });
-  
+
     localStorage.setItem('contacts', JSON.stringify(updatedContacts));
   };
 
-  const handleKeyPress = (event,selectedChatId) => {
+  const handleKeyPress = (event, selectedChatId) => {
     if (event.key === 'Enter') {
       handleSendMessage(selectedChatId);
       event.preventDefault();
@@ -134,7 +133,7 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
   }, [messages]);
 
   return (
-    <main className={`main ${windowWidth < 1080 ? 'show-chat' : '' } `}>
+    <main className={`main ${windowWidth < 1080 ? 'show-chat' : ''} `}>
       <div className="chat-wrap">
         <div className="header">
           {selectedChat ? (
@@ -158,18 +157,18 @@ const Main = ({ selectedChat, messages, onSendMessage,windowWidth }) => {
             </div>
           ))}
         </div>
-          <form onSubmit={send}>
-        <div className="text-area">
-          <UploadFile onFileSend={handleFileSend} />
-          <input ref={messageInput} type="text" className="mensaje" id="message-area" placeholder="Aa"  onKeyDown={(event) => handleKeyPress(event, selectedChat?.id)} required/>
-          <button className="btn-send" type="submit">
-            <i className="bi bi-send"></i>
-          </button>
-          <button type="button" className="btn-stycker">
-            <i className="bi bi-emoji-smile"></i>
-          </button>
-        </div>
-          </form>
+        <form onSubmit={send}>
+          <div className="text-area">
+            <UploadFile onFileSend={handleFileSend} />
+            <input ref={messageInput} type="text" className="mensaje" id="message-area" placeholder="Aa" onKeyDown={(event) => handleKeyPress(event, selectedChat?.id)} required />
+            <button className="btn-send" type="submit">
+              <i className="bi bi-send"></i>
+            </button>
+            <button type="button" className="btn-stycker">
+              <i className="bi bi-emoji-smile"></i>
+            </button>
+          </div>
+        </form>
       </div>
     </main>
   );
