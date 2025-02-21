@@ -111,7 +111,7 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
       <section className="container-barchat">
         <h4 className="sub-title-aside">PINNED CHATS</h4>
         {filteredChats(pinnedChats).map((chat) =>
-          chat.msgs.length === 0 ? null : (
+          Array.isArray(chat.msgs) && chat.msgs.length === 0 ? null : (
             <div key={chat.id}>
               <div
                 className="barchat"
@@ -150,7 +150,7 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
         )}
         <h4 className="sub-title-aside">RECENT CHATS</h4>
         {filteredChats(recentChats).map((chat) =>
-          chat.msgs.length === 0 ? null : (
+          Array.isArray(chat.msgs) && chat.msgs.length === 0 ? null : (
             <div key={chat.id}>
               <div
                 className="barchat"
@@ -206,7 +206,7 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
 
         <h4 className="sub-title-aside">MUTED CHATS</h4>
         {filteredChats(mutedChats).map((chat) =>
-          chat.msgs.length === 0 ? null : (
+          Array.isArray(chat.msgs) && chat.msgs.length === 0 ? null : (
             <div key={chat.id}>
               <div
                 className="barchat"

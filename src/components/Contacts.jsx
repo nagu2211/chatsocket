@@ -62,7 +62,7 @@ const Contacts = ({ chats, onSelectChat }) => {
       imgUser = './assets/user.png';
     }
 
-    const newContact = { ...data, id: nanoid(10), img: imgUser };
+    const newContact = { ...data, id: nanoid(10), img: imgUser, msgs: [] };
     const updatedChats = [...contactList, newContact];
 
     localStorage.setItem('contacts', JSON.stringify(updatedChats));

@@ -5,10 +5,18 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Profile from './components/Profile';
 import Contacts from './components/Contacts';
 import React, { useState, useEffect } from 'react';
-import infoChatsJson from "./infoChats.json"
+import infoChatsJson from './infoChats.json';
 import './App.css';
 
 function App() {
+  const [data , setData] = useState([])
+  useEffect(() => {
+    fetch('https://randomuser.me/api/')
+      .then((response) => response.json())
+      .then((data) => setData(data.results[0]))
+      .catch((err) => console.error(err));
+  }, []);
+
   const [userInfo, setUserInfo] = useState({
     imgUser: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROWl-pf1jCsz-QnUJjwNC3MVgJpDBw10cVqiX2KIEF5g&s',
     name: 'Santiago A',
@@ -37,7 +45,7 @@ function App() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  
+
   const handleSelectChat = (chat) => {
     setSelectedChat(chat);
   };

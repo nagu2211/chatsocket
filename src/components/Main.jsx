@@ -25,7 +25,6 @@ const Main = ({ selectedChat, messages, onSendMessage, windowWidth }) => {
     };
     socket.on('connect', handleConnect);
     socket.on('message', handleMessage);
-    console.log(selectedChat);
     return () => {
       socket.off('connect', handleConnect);
       socket.off('message', handleMessage);
@@ -64,6 +63,7 @@ const Main = ({ selectedChat, messages, onSendMessage, windowWidth }) => {
         const updatedMsgs = [...(contact.msgs || []), newMessage];
         return {
           ...contact,
+          newMsg:0,
           msgs: updatedMsgs,
           lastMessage: messageText,
         };
