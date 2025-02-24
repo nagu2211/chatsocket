@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 const socket = io('http://localhost:3000');
 
 const Main = ({ selectedChat, messages, onSendMessage, windowWidth }) => {
-  
   const { id } = useParams();
   const boxMessages = useRef(null);
   const messageInput = useRef('');
@@ -29,7 +28,6 @@ const Main = ({ selectedChat, messages, onSendMessage, windowWidth }) => {
       socket.off('connect', handleConnect);
       socket.off('message', handleMessage);
     };
-    
   }, [clientId, selectedChat, onSendMessage]);
 
   const scrollBottom = () => {
@@ -63,7 +61,7 @@ const Main = ({ selectedChat, messages, onSendMessage, windowWidth }) => {
         const updatedMsgs = [...(contact.msgs || []), newMessage];
         return {
           ...contact,
-          newMsg:0,
+          newMsg: 0,
           msgs: updatedMsgs,
           lastMessage: messageText,
         };

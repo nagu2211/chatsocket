@@ -24,7 +24,17 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
       return chats;
     }
   });
-
+  const getShortMessage = (message) => {
+    if (!message) return "";
+  
+    const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
+    const segments = [...segmenter.segment(message)].map((s) => s.segment);
+    
+    return segments.length > 22 ? segments.slice(0, 22).join("") + "..." : message;
+  };
+  const getShortUserName = (name) => {
+    return name.length > 16 ? name.slice(0, 16) : name;
+  };
   useEffect(() => {
     const updateChatList = () => {
       const chatsLs = JSON.parse(localStorage.getItem('contacts')) || [];
@@ -129,7 +139,7 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
                 </div>
                 <div className="info-chat">
                   <span className="name-chat">
-                    {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
+                  {getShortUserName(chat.name)} <span className="content-chat"> - {getShortMessage(chat.lastMessage)}</span>
                   </span>
                 </div>
                 <div className="icons-action-barchat">
@@ -170,7 +180,7 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
                 </div>
                 <div className="info-chat">
                   <span className="name-chat">
-                    {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
+                  {getShortUserName(chat.name)} <span className="content-chat"> - {getShortMessage(chat.lastMessage)} </span>
                   </span>
                 </div>
                 {chat.newMsg > 0 ? (
@@ -224,7 +234,7 @@ const Chats = ({ chats, onSelectChat, userInfo, windowWidth }) => {
                 </div>
                 <div className="info-chat">
                   <span className="name-chat">
-                    {chat.name} <span className="content-chat"> - {chat.lastMessage} </span>
+                  {getShortUserName(chat.name)} <span className="content-chat"> - {getShortMessage(chat.lastMessage)} </span>
                   </span>
                 </div>
                 <div className="icons-action-barchat">
